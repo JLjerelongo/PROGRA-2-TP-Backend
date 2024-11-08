@@ -8,12 +8,15 @@ namespace CineCordobaWebApi.Repositories
 {
     public interface ICineRepository
     {
+        //METODO PARA OBTENER TODAS LAS PELICULAS Y SUS GENEROS
+        public List<PeliculaTicketDTO> GetAllPeliculas();
+
+
 
         //public bool UpdateEstadoPelicula(int idPelicula);
 
         public List<Genero> GetAllGeneross();
 
-        public List<PeliculaTicketDTO> GetAllPeliculasProbando();
         public bool CreatePelicula(PeliculasGenerosDTO peliculasDTO);
 
         // Nuevos métodos para obtener clasificaciones, países y directores

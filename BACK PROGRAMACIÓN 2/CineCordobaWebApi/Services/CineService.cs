@@ -16,6 +16,13 @@ namespace CineCordobaWebApi.Services
             _cineRepository = cineRepository;
         }
 
+        //METODO PARA OBTENER TODAS LAS PELICULAS Y SUS GENEROS
+        public List<PeliculaTicketDTO> GetAllPeliculas()
+        {
+            // Llama al repositorio para obtener todas las películas con sus géneros y otros atributos
+            return _cineRepository.GetAllPeliculas();
+        }
+
 
         // Implementación del método para obtener una película por ID
         public async Task<PeliculaTicketDTO> ObtenerPeliculaPorIdAsync(int id)
@@ -35,11 +42,6 @@ namespace CineCordobaWebApi.Services
             return _cineRepository.GetAllGeneross();
         }
 
-        public List<PeliculaTicketDTO> GetAllPeliculasProbando()
-        {
-            // Llama al repositorio para obtener todas las películas con sus géneros y otros atributos
-            return _cineRepository.GetAllPeliculasProbando();
-        }
         public bool CreatePelicula(PeliculasGenerosDTO peliculasDTO)
         {
             return _cineRepository.CreatePelicula(peliculasDTO);

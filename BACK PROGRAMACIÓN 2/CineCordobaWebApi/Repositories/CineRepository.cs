@@ -20,11 +20,53 @@ namespace CineCordobaWebApi.Repositories
         {
             _context = context;
         }
-        /* MÉTODOS PARA LAS CONSULTAS */
-        //metodo adicional que capaz sirva para las peliculas
 
+        //METODO PARA OBTENER TODAS LAS PELICULAS Y SUS GENEROS
+        public List<PeliculaTicketDTO> GetAllPeliculas()
+        {
+            // Primero obtén las películas sin aplicar ConvertirDuracion
+            var peliculas = _context.Peliculas
+                .Include(p => p.IdClasificacionNavigation)
+                .Include(p => p.IdDirectorNavigation)
+                .Include(p => p.IdEstadoNavigation)
+                .Include(p => p.IdPaisNavigation)
+                .Include(p => p.GenerosPeliculas)
+                    .ThenInclude(gp => gp.IdGeneroNavigation)
+                .Select(p => new
+                {
+                    p.IdPelicula,
+                    p.TituloPelicula,
+                    p.DuracionMin,
+                    Clasificacion = p.IdClasificacionNavigation.Descripcion,
+                    Director = p.IdDirectorNavigation.Nombre + " " + p.IdDirectorNavigation.Apellido,
+                    Estado = p.IdEstadoNavigation.Estado,
+                    Pais = p.IdPaisNavigation.Pais,
+                    TicketCount = p.Tickets.Count(),
+                    PrimerTicketFecha = p.Tickets.OrderBy(t => t.Fecha).Select(t => t.Fecha).FirstOrDefault(),
+                    UltimaHoraTicket = p.Tickets.OrderByDescending(t => t.Hora).Select(t => t.Hora).FirstOrDefault(),
+                    Generos = p.GenerosPeliculas.Select(gp => gp.IdGeneroNavigation.Descripcion).ToList()
+                })
+                .ToList();
 
-        //get all generos de jere
+            // Luego convierte DuracionMin a un formato legible en memoria
+            var resultado = peliculas.Select(p => new PeliculaTicketDTO
+            {
+                IdPelicula = p.IdPelicula,
+                TituloPelicula = p.TituloPelicula,
+                DuracionMin = p.DuracionMin ?? 0,
+                DuracionFormato = p.DuracionMin != null ? ConvertirDuracion(p.DuracionMin.Value) : "No disponible",
+                Clasificacion = p.Clasificacion,
+                Director = p.Director,
+                Estado = p.Estado,
+                Pais = p.Pais,
+                TicketCount = p.TicketCount,
+                PrimerTicketFecha = p.PrimerTicketFecha,
+                UltimaHoraTicket = p.UltimaHoraTicket,
+                Generos = p.Generos
+            }).ToList();
+
+            return resultado;
+        }
 
         public List<Genero> GetAllGeneross()
         {
@@ -145,58 +187,7 @@ namespace CineCordobaWebApi.Repositories
             return lst;
         }
         //CRUD PELICULAS
-        public List<PeliculaTicketDTO> GetAllPeliculas()
-        {
-            var peliculas = new List<PeliculaTicketDTO>();
-            string query = @"
-        SELECT 
-            p.id_pelicula,
-            p.titulo_pelicula,
-            p.duracion_min,
-            c.Descripcion AS Clasificacion,
-            d.Nombre + ' ' + d.Apellido AS Director,
-            TE.estado AS Estado,
-            pa.pais AS Pais,
-            COUNT(ti.nro_ticket) AS TicketCount,
-            MIN(ti.fecha) AS PrimerTicketFecha,
-            MAX(ti.hora) AS UltimaHoraTicket
-        FROM Peliculas p
-        LEFT JOIN 
-            Clasificaciones c ON p.id_clasificacion = c.id_clasificacion
-        LEFT JOIN 
-            Directores d ON p.id_director = d.id_director
-        LEFT JOIN 
-            TIPOS_ESTADO TE ON p.id_estado = TE.id_estado
-        LEFT JOIN 
-            Paises pa ON p.id_pais = pa.id_pais
-        LEFT JOIN 
-            TICKETS ti ON p.id_pelicula = ti.id_pelicula
-        GROUP BY 
-            p.id_pelicula, p.titulo_pelicula, p.duracion_min, c.Descripcion, d.Nombre, d.Apellido, TE.estado, pa.pais";
-
-            var dataTable = DBHelper.GetInstancia().ConsultarVista(query);
-
-            foreach (DataRow row in dataTable.Rows)
-            {
-                var pelicula = new PeliculaTicketDTO
-                {
-                    IdPelicula = Convert.ToInt32(row["id_pelicula"]),
-                    TituloPelicula = row["titulo_pelicula"].ToString(),
-                    DuracionMin = row["duracion_min"] != DBNull.Value ? Convert.ToInt32(row["duracion_min"]) : 0,
-                    DuracionFormato = row["duracion_min"] != DBNull.Value ? ConvertirDuracion(Convert.ToInt32(row["duracion_min"])) : "No disponible",
-                    Clasificacion = row["Clasificacion"].ToString(),
-                    Director = row["Director"].ToString(),
-                    Estado = row["Estado"].ToString(),
-                    Pais = row["Pais"].ToString(),
-                    TicketCount = Convert.ToInt32(row["TicketCount"]),
-                    PrimerTicketFecha = row["PrimerTicketFecha"] != DBNull.Value ? Convert.ToDateTime(row["PrimerTicketFecha"]) : (DateTime?)null,
-                    UltimaHoraTicket = row["UltimaHoraTicket"] != DBNull.Value ? (TimeSpan?)row["UltimaHoraTicket"] : null // Convertir a TimeSpan?
-                };
-                peliculas.Add(pelicula);
-            }
-
-            return peliculas;
-        }
+       
         private string ConvertirDuracion(int duracionMin)
         {
             int horas = duracionMin / 60;
@@ -212,51 +203,7 @@ namespace CineCordobaWebApi.Repositories
             return DBHelper.GetInstancia().EjecutarSQL("SP_RETIRAR_PELICULA", listaParam) == 1;
         }*/
 
-        public List<PeliculaTicketDTO> GetAllPeliculasProbando()
-        {
-            // Primero obtén las películas sin aplicar ConvertirDuracion
-            var peliculas = _context.Peliculas
-                .Include(p => p.IdClasificacionNavigation)
-                .Include(p => p.IdDirectorNavigation)
-                .Include(p => p.IdEstadoNavigation)
-                .Include(p => p.IdPaisNavigation)
-                .Include(p => p.GenerosPeliculas)
-                    .ThenInclude(gp => gp.IdGeneroNavigation)
-                .Select(p => new
-                {
-                    p.IdPelicula,
-                    p.TituloPelicula,
-                    p.DuracionMin,
-                    Clasificacion = p.IdClasificacionNavigation.Descripcion,
-                    Director = p.IdDirectorNavigation.Nombre + " " + p.IdDirectorNavigation.Apellido,
-                    Estado = p.IdEstadoNavigation.Estado,
-                    Pais = p.IdPaisNavigation.Pais,
-                    TicketCount = p.Tickets.Count(),
-                    PrimerTicketFecha = p.Tickets.OrderBy(t => t.Fecha).Select(t => t.Fecha).FirstOrDefault(),
-                    UltimaHoraTicket = p.Tickets.OrderByDescending(t => t.Hora).Select(t => t.Hora).FirstOrDefault(),
-                    Generos = p.GenerosPeliculas.Select(gp => gp.IdGeneroNavigation.Descripcion).ToList()
-                })
-                .ToList();
-
-            // Luego convierte DuracionMin a un formato legible en memoria
-            var resultado = peliculas.Select(p => new PeliculaTicketDTO
-            {
-                IdPelicula = p.IdPelicula,
-                TituloPelicula = p.TituloPelicula,
-                DuracionMin = p.DuracionMin ?? 0,
-                DuracionFormato = p.DuracionMin != null ? ConvertirDuracion(p.DuracionMin.Value) : "No disponible",
-                Clasificacion = p.Clasificacion,
-                Director = p.Director,
-                Estado = p.Estado,
-                Pais = p.Pais,
-                TicketCount = p.TicketCount,
-                PrimerTicketFecha = p.PrimerTicketFecha,
-                UltimaHoraTicket = p.UltimaHoraTicket,
-                Generos = p.Generos
-            }).ToList();
-
-            return resultado;
-        }
+        
         public bool CreatePelicula(PeliculasGenerosDTO peliculasDTO)
         {
             using var transaction = _context.Database.BeginTransaction();
