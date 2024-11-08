@@ -1,0 +1,134 @@
+﻿{
+   "CodeGenerationMode": 3,
+   "ContextClassName": "CineCordobaDBContext",
+   "ContextNamespace": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": false,
+   "ModelNamespace": null,
+   "OutputContextPath": null,
+   "OutputPath": "Models",
+   "PreserveCasingWithRegex": true,
+   "ProjectRootNamespace": "CineCordobaWebApi",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 2,
+   "SelectedToBeGenerated": 0,
+   "T4TemplatePath": null,
+   "Tables": [
+      {
+         "Name": "[dbo].[BOLETERIAS]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[BUTACAS_SALAS]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CLASIFICACIONES]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CLIENTES]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DETALLES_FACTURAS]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DIRECTORES]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ESTADOS_RESERVAS]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[FACTURAS]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[FORMAS_PAGO]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[FUNCIONES]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[GENEROS]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[GENEROS_PELICULAS]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[LENGUAJES]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PAISES]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PELICULAS]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[PROMOCIONES]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[RESERVAS]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ROLES]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[SALAS]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[TICKETS]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[TIPOS_ESTADO]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[TIPOS_SALAS]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[USUARIOS]",
+         "ObjectType": 0
+      }
+   ],
+   "UiHint": null,
+   "UncountableWords": null,
+   "UseAsyncStoredProcedureCalls": true,
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": false,
+   "UseDateOnlyTimeOnly": false,
+   "UseDbContextSplitting": false,
+   "UseDecimalDataAnnotationForSprocResult": true,
+   "UseFluentApiOnly": true,
+   "UseHandleBars": false,
+   "UseHierarchyId": false,
+   "UseInflector": true,
+   "UseLegacyPluralizer": false,
+   "UseManyToManyEntity": false,
+   "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UsePrefixNavigationNaming": false,
+   "UseSchemaFolders": false,
+   "UseSchemaNamespaces": false,
+   "UseSpatial": false,
+   "UseT4": false
+}
