@@ -148,9 +148,9 @@ namespace CineCordobaWebApi.Services
             return await _cineRepository.GetDetallesFacturaByIdAsync(nroFactura);
         }
 
-        public async Task<List<ButacaDto>> GetButacasDisponiblesAsync(int idSala, DateTime fechaFuncion)
+        public async Task<List<ButacaDto>> GetButacasDisponiblesAsync(int idFuncion)
         {
-            return await _cineRepository.GetButacasDisponiblesAsync(idSala, fechaFuncion);
+            return await _cineRepository.GetButacasDisponiblesAsync(idFuncion);
         }
 
         public async Task<List<FormaPagoDto>> GetAllFormasPagoAsync()

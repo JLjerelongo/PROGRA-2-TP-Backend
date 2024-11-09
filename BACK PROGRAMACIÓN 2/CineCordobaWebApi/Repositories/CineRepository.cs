@@ -547,16 +547,26 @@ namespace CineCordobaWebApi.Repositories
                 .ToListAsync();
         }
 
-        public async Task<List<ButacaDto>> GetButacasDisponiblesAsync(int idSala, DateTime fechaFuncion)
+        public async Task<List<ButacaDto>> GetButacasDisponiblesAsync(int idFuncion)
         {
-            // Obtenemos las butacas de la sala específica
+            // Obtenemos la función especificada
+            var funcion = await _context.Funciones
+                .Where(f => f.IdFuncion == idFuncion)
+                .Select(f => new { f.IdSala, f.Fecha })
+                .FirstOrDefaultAsync();
+
+            // Verificamos que la función exista
+            if (funcion == null)
+                throw new Exception("Función no encontrada.");
+
+            // Obtenemos las butacas de la sala específica de la función
             var butacas = await _context.ButacasSalas
-                .Where(b => b.IdSala == idSala) // Filtramos por sala
+                .Where(b => b.IdSala == funcion.IdSala) // Filtramos por sala
                 .Select(b => new ButacaDto
                 {
-                    IdButaca = b.IdButacaSala, // Asegúrate de que esto sea correcto
+                    IdButaca = b.IdButacaSala,
                     Descripcion = $"Sala {b.IdSala} - Butaca {b.NroButaca}",
-                    Disponible = !b.Reservas.Any(r => r.FechaReserva == fechaFuncion) && !b.Tickets.Any(t => t.Fecha == fechaFuncion) // Verificamos si no hay reservas o tickets en la fecha especificada
+                    Disponible = !b.Reservas.Any(r => r.FechaReserva == funcion.Fecha) && !b.Tickets.Any(t => t.Fecha == funcion.Fecha) // Verificamos si no hay reservas o tickets en la fecha especificada
                 })
                 .ToListAsync();
 

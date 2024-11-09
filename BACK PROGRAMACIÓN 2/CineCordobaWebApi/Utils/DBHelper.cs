@@ -10,7 +10,7 @@ namespace CineCordobaWebApi.Utils
 
         private DBHelper()
         {
-            conexion = new SqlConnection(@"Data Source=DESKTOP-R73QI63\\SQLEXPRESS;Initial Catalog=CINE_CORDOBA;Integrated Security=True;Trust Server Certificate=True");
+            conexion = new SqlConnection(@"Data Source=LAPTOP-JERE\SQLEXPRESS;Initial Catalog=CINE_CORDOBA;Integrated Security=True;Trust Server Certificate=True");
         }
 
         public static DBHelper GetInstancia()

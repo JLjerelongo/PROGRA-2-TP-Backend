@@ -100,12 +100,12 @@ namespace CineCordobaWebApi.Controller
             }
         }
 
-        [HttpGet("butacas-disponibles/{idSala}/{fechaFuncion}")]
-        public async Task<IActionResult> GetButacasDisponibles(int idSala, DateTime fechaFuncion)
+        [HttpGet("butacas-disponibles/{idFuncion}")]
+        public async Task<IActionResult> GetButacasDisponibles(int idFuncion)
         {
             try
             {
-                var butacas = await _service.GetButacasDisponiblesAsync(idSala, fechaFuncion);
+                var butacas = await _service.GetButacasDisponiblesAsync(idFuncion);
                 return Ok(butacas);
             }
             catch (Exception ex)

@@ -41,7 +41,7 @@ namespace CineCordobaWebApi.Repositories
         Task<List<FacturaDto>> GetAllFacturasAsync();
         Task<FacturaDto> GetFacturaByIdAsync(int id);
         Task<List<DetalleFacturaDto>> GetDetallesFacturaByIdAsync(int nroFactura);
-        Task<List<ButacaDto>> GetButacasDisponiblesAsync(int idSala, DateTime fechaFuncion);
+        Task<List<ButacaDto>> GetButacasDisponiblesAsync(int idFuncion);
         Task<List<FormaPagoDto>> GetAllFormasPagoAsync();
         Task<List<FuncionDto>> GetFuncionesByPeliculaIdAsync(int idPelicula);
         Task<CompraEntradaDto> RealizarCompra(CompraEntradaDto compraEntradaDto);
