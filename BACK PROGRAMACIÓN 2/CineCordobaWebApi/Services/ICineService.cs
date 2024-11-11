@@ -6,6 +6,11 @@ namespace CineCordobaWebApi.Services
 {
     public interface ICineService
     {
+
+        //METODO PARA OBTENER TODAS LAS PELICULAS Y SUS GENEROS
+        public List<PeliculaTicketDTO> GetAllPeliculas();
+
+
         public bool UpdateEstadoPelicula(int idPelicula);
 
         // Nuevo método para obtener todos los géneros
@@ -20,7 +25,6 @@ namespace CineCordobaWebApi.Services
         List<TiposEstado> GetAllEstados();
 
         //metodo para traer todas las peliculas con sus generos
-        public List<PeliculaTicketDTO> GetAllPeliculasProbando();
 
         //traer pelicula por id
         public Task<PeliculaTicketDTO> ObtenerPeliculaPorIdAsync(int id);
@@ -39,7 +43,7 @@ namespace CineCordobaWebApi.Services
         Task<List<FacturaDto>> GetAllFacturasAsync();
         Task<FacturaDto> GetFacturaByIdAsync(int id);
         Task<List<DetalleFacturaDto>> GetDetallesFacturaByIdAsync(int nroFactura);
-        Task<List<ButacaDto>> GetButacasDisponiblesAsync(int idSala, DateTime fechaFuncion);
+        Task<List<ButacaDto>> GetButacasDisponiblesAsync(int idFuncion);
         Task<List<FormaPagoDto>> GetAllFormasPagoAsync();
         Task<List<FuncionDto>> GetFuncionesByPeliculaIdAsync(int idPelicula);
         Task<ClienteFacDTO> ObtenerClientePorIdAsync(int idCliente);

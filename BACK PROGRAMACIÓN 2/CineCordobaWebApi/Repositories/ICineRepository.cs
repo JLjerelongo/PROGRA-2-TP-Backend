@@ -8,12 +8,15 @@ namespace CineCordobaWebApi.Repositories
 {
     public interface ICineRepository
     {
+        //METODO PARA OBTENER TODAS LAS PELICULAS Y SUS GENEROS
+        public List<PeliculaTicketDTO> GetAllPeliculas();
+
+
 
         //public bool UpdateEstadoPelicula(int idPelicula);
 
         public List<Genero> GetAllGeneross();
 
-        public List<PeliculaTicketDTO> GetAllPeliculasProbando();
         public bool CreatePelicula(PeliculasGenerosDTO peliculasDTO);
 
         // Nuevos métodos para obtener clasificaciones, países y directores
@@ -38,7 +41,7 @@ namespace CineCordobaWebApi.Repositories
         Task<List<FacturaDto>> GetAllFacturasAsync();
         Task<FacturaDto> GetFacturaByIdAsync(int id);
         Task<List<DetalleFacturaDto>> GetDetallesFacturaByIdAsync(int nroFactura);
-        Task<List<ButacaDto>> GetButacasDisponiblesAsync(int idSala, DateTime fechaFuncion);
+        Task<List<ButacaDto>> GetButacasDisponiblesAsync(int idFuncion);
         Task<List<FormaPagoDto>> GetAllFormasPagoAsync();
         Task<List<FuncionDto>> GetFuncionesByPeliculaIdAsync(int idPelicula);
         Task<CompraEntradaDto> RealizarCompra(CompraEntradaDto compraEntradaDto);

@@ -21,10 +21,10 @@ namespace CineCordobaWebApi.Controllers
         //CRUD
         //GET PELICULAS
 
-        [HttpGet("peliculas2")]
-        public ActionResult<List<PeliculaDTO>> GetAllPeliculasProbando()
+        [HttpGet("peliculas")]
+        public ActionResult<List<PeliculaDTO>> GetAllPeliculas()
         {
-            var peliculas = _service.GetAllPeliculasProbando();
+            var peliculas = _service.GetAllPeliculas();
             if (peliculas == null || !peliculas.Any())
             {
                 return NotFound("No se encontraron películas.");
@@ -33,7 +33,7 @@ namespace CineCordobaWebApi.Controllers
         }
 
         // Método GET para obtener una película por ID
-        [HttpGet("peliculas2/{id}")]
+        [HttpGet("peliculas/{id}")]
         public async Task<ActionResult<Pelicula>> GetPeliculaById(int id)
         {
             var pelicula = await _service.ObtenerPeliculaPorIdAsync(id);
