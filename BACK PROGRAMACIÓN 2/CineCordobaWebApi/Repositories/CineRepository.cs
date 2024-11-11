@@ -722,7 +722,12 @@ namespace CineCordobaWebApi.Repositories
                 .FirstOrDefaultAsync();
         }
 
+        public async Task<List<Cliente>> GetAllClientesAsync()
+        {
+            
+            return await _context.Clientes.ToListAsync();
 
+        }
     }
 }
 

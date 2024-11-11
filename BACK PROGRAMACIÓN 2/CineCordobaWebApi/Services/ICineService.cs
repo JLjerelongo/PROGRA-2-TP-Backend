@@ -47,5 +47,9 @@ namespace CineCordobaWebApi.Services
         Task<List<FormaPagoDto>> GetAllFormasPagoAsync();
         Task<List<FuncionDto>> GetFuncionesByPeliculaIdAsync(int idPelicula);
         Task<ClienteFacDTO> ObtenerClientePorIdAsync(int idCliente);
+
+        // Nuevo
+
+        Task<List<Cliente>> GetAllClientesAsync();  // Agregar este método
     }
 }
