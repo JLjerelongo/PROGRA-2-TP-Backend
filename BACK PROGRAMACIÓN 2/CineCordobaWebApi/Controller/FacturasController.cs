@@ -143,5 +143,20 @@ namespace CineCordobaWebApi.Controller
         }
 
 
+        //Nueva parte
+        [HttpGet("clientes")]
+        public async Task<IActionResult> GetAllClientes()
+        {
+            try
+            {
+                var clientes = await _service.GetAllClientesAsync();
+                return Ok(clientes);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Error al obtener los clientes.");
+            }
+        }
+
     }
 }

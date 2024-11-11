@@ -45,5 +45,9 @@ namespace CineCordobaWebApi.Repositories
         Task<ClienteFacDTO> GetClientePorIdAsync(int idCliente);
         Task<List<TicketDto>> GetAllTicketsAsync();
 
+        // Nuevo
+
+        Task<List<Cliente>> GetAllClientesAsync();  // Agregar este método
+
     }
 }
