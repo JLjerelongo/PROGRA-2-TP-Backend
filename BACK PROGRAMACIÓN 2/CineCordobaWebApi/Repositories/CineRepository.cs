@@ -593,8 +593,11 @@ namespace CineCordobaWebApi.Repositories
                 {
                     IdFuncion = f.IdFuncion,
                     TituloPelicula = f.IdPeliculaNavigation.TituloPelicula,
+                    SalaId = f.IdSala,
                     Fecha = f.Fecha,
-                    Hora = f.Hora
+                    Hora = f.Hora,
+                    SubtituloId = f.Subtitulos, // Campo que indica si la función tiene subtítulos
+                    LenguajeId = f.IdLenguaje
                 })
                 .ToListAsync();
         }

@@ -4,7 +4,11 @@
     {
         public int IdFuncion { get; set; }
         public string TituloPelicula { get; set; }
-        public DateTime? Fecha { get; set; } // Cambiado a DateTime?
-        public TimeSpan? Hora { get; set; } // También puede ser nullable si es necesario
+        public int? SalaId { get; set; }
+        public DateTime? Fecha { get; set; }
+        public TimeSpan? Hora { get; set; }
+        public bool? SubtituloId { get; set; }
+        public int? LenguajeId { get; set; }
+
     }
 }
