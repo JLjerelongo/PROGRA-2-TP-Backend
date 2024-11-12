@@ -152,7 +152,10 @@ namespace CineCordobaWebApi.Services
         {
             return await _cineRepository.GetButacasDisponiblesAsync(idFuncion);
         }
-
+        public async Task<string> GetButacasDescripcionById(int idButaca)
+        {
+            return await _cineRepository.GetButacasDescripcionById(idButaca);
+        }
         public async Task<List<FormaPagoDto>> GetAllFormasPagoAsync()
         {
             return await _cineRepository.GetAllFormasPagoAsync();
@@ -162,10 +165,19 @@ namespace CineCordobaWebApi.Services
         {
             return await _cineRepository.GetFuncionesByPeliculaIdAsync(idPelicula);
         }
+        public async Task<FuncionDto> GetFuncionByIdFuncion(int idFuncion)
+        {
+            return await _cineRepository.GetFuncionByIdFuncion(idFuncion);
+        }
 
         public async Task<ClienteFacDTO> ObtenerClientePorIdAsync(int idCliente)
         {
             return await _cineRepository.ObtenerClientePorIdAsync(idCliente); // Asegúrate de que el repositorio tenga este método
+        }
+
+        public async Task<ClienteUsuarioDto> GetClienteByUsernameAsync(string username)
+        {
+            return await _cineRepository.GetClienteByUsernameAsync(username);
         }
 
         //public async Task<List<Cliente>> GetClientePorId()

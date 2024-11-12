@@ -561,7 +561,7 @@ namespace CineCordobaWebApi.Repositories
 
             // Obtenemos todas las butacas de la sala específica de la función
             var butacas = await _context.ButacasSalas
-                .Where(b => b.IdSala == funcion.IdSala) // Filtramos por sala
+                .Where(b => b.IdSala == funcion.IdSala)
                 .Select(b => new ButacaDto
                 {
                     IdButaca = b.IdButacaSala,
@@ -574,6 +574,18 @@ namespace CineCordobaWebApi.Repositories
             return butacas;
         }
 
+        public async Task<string> GetButacasDescripcionById(int idButaca)
+        {
+            var butaca = await _context.ButacasSalas
+                .Where(b => b.IdButacaSala == idButaca)
+                .Select(b => $"Fila {b.Fila} - Butaca {b.NroButaca}") // Solo traemos la descripción
+                .FirstOrDefaultAsync();
+
+            if (butaca == null)
+                throw new Exception("Butaca no encontrada.");
+
+            return butaca;
+        }
 
         public async Task<List<FormaPagoDto>> GetAllFormasPagoAsync()
         {
@@ -597,10 +609,26 @@ namespace CineCordobaWebApi.Repositories
                     SalaId = f.IdSala,
                     Fecha = f.Fecha,
                     Hora = f.Hora,
-                    SubtituloId = f.Subtitulos, // Campo que indica si la función tiene subtítulos
+                    SubtituloId = f.Subtitulos,
                     LenguajeId = f.IdLenguaje
                 })
                 .ToListAsync();
+        }
+        public async Task<FuncionDto> GetFuncionByIdFuncion(int idFuncion)
+        {
+            return await _context.Funciones
+                .Where(f => f.IdFuncion == idFuncion)
+                .Select(f => new FuncionDto
+                {
+                    IdFuncion = f.IdFuncion,
+                    TituloPelicula = f.IdPeliculaNavigation.TituloPelicula,
+                    SalaId = f.IdSala,
+                    Fecha = f.Fecha,
+                    Hora = f.Hora,
+                    SubtituloId = f.Subtitulos,
+                    LenguajeId = f.IdLenguaje
+                })
+                .FirstOrDefaultAsync();
         }
         public async Task<CompraEntradaDto> RealizarCompra(CompraEntradaDto compraEntradaDto)
         {
@@ -619,7 +647,7 @@ namespace CineCordobaWebApi.Repositories
                         Telefono = compraEntradaDto.TelefonoCliente,
                     };
                     _context.Clientes.Add(cliente);
-                    await _context.SaveChangesAsync(); // Guardar cliente primero para obtener el Id
+                    await _context.SaveChangesAsync();
 
                     // Crear una nueva factura
                     var factura = new Factura
@@ -630,7 +658,7 @@ namespace CineCordobaWebApi.Repositories
                         IdBoleteria = compraEntradaDto.IdBoleteria,
                     };
                     _context.Facturas.Add(factura);
-                    await _context.SaveChangesAsync(); // Guardar factura para obtener el NroFactura
+                    await _context.SaveChangesAsync();
 
                     // Crear detalles de la factura
                     var detalleFactura = new DetallesFactura
@@ -644,7 +672,7 @@ namespace CineCordobaWebApi.Repositories
                         CantEntrada = compraEntradaDto.CantidadEntradas
                     };
                     _context.DetallesFacturas.Add(detalleFactura);
-                    await _context.SaveChangesAsync(); // Guarda el detalle de factura
+                    await _context.SaveChangesAsync(); 
 
                     // Crear un ticket por cada butaca en la lista
                     foreach (var idButacaSala in compraEntradaDto.IdButacasSala)
@@ -665,11 +693,8 @@ namespace CineCordobaWebApi.Repositories
 
                     // Guardar todos los tickets en la base de datos
                     await _context.SaveChangesAsync();
-
-                    // Confirmar la transacción
                     await transaction.CommitAsync();
 
-                    // Retorna DTO de respuesta
                     return new CompraEntradaDto
                     {
                         NombreCliente = cliente.Nombre + " " + cliente.Apellido,
@@ -683,13 +708,13 @@ namespace CineCordobaWebApi.Repositories
                         PrecioTotal = (detalleFactura.PrecioUnitario ?? 0) * compraEntradaDto.CantidadEntradas,
                         IdFormaPago = compraEntradaDto.IdFormaPago,
                         IdBoleteria = compraEntradaDto.IdBoleteria,
-                        IdFuncion = compraEntradaDto.IdFuncion // Incluye el ID de la función
+                        IdFuncion = compraEntradaDto.IdFuncion
                     };
                 }
                 catch (Exception ex)
                 {
                     await transaction.RollbackAsync();
-                    throw; // Lanzar la excepción para que el controlador la maneje
+                    throw; 
                 }
             }
         }
@@ -702,12 +727,12 @@ namespace CineCordobaWebApi.Repositories
 
         public async Task CommitAsync()
         {
-            await _transaction.CommitAsync(); // Confirmar la transacción
+            await _transaction.CommitAsync();
         }
 
         public async Task RollbackAsync()
         {
-            await _transaction.RollbackAsync(); // Deshacer la transacción
+            await _transaction.RollbackAsync();
         }
         public async Task<ClienteFacDTO> ObtenerClientePorIdAsync(int idCliente)
         {
@@ -725,10 +750,32 @@ namespace CineCordobaWebApi.Repositories
                 })
                 .FirstOrDefaultAsync();
         }
+        public async Task<ClienteUsuarioDto> GetClienteByUsernameAsync(string username)
+        {
+            var usuario = await _context.Usuarios
+                .Include(u => u.IdClienteNavigation) // Incluir la navegación a Cliente
+                .Where(u => u.Username == username)
+                .Select(u => new ClienteUsuarioDto
+                {
+                    IdCliente = u.IdClienteNavigation.IdCliente,
+                    Nombre = u.IdClienteNavigation.Nombre,
+                    Apellido = u.IdClienteNavigation.Apellido,
+                    Documento = u.IdClienteNavigation.Documento,
+                    FechaNac = u.IdClienteNavigation.FechaNac,
+                    Email = u.IdClienteNavigation.Email,
+                    Telefono = u.IdClienteNavigation.Telefono
+                })
+                .FirstOrDefaultAsync();
+
+            if (usuario == null)
+                throw new Exception("Usuario no encontrado.");
+
+            return usuario;
+        }
 
         //public async Task<Cliente> GetClientePorId()
         //{
-            
+
         //    return await _context.Clientes.ToListAsync();
 
         //}

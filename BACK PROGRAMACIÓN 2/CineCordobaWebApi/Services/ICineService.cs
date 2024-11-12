@@ -44,12 +44,14 @@ namespace CineCordobaWebApi.Services
         Task<FacturaDto> GetFacturaByIdAsync(int id);
         Task<List<DetalleFacturaDto>> GetDetallesFacturaByIdAsync(int nroFactura);
         Task<List<ButacaDto>> GetButacasDisponiblesAsync(int idFuncion);
+        Task<string> GetButacasDescripcionById(int idButaca);
         Task<List<FormaPagoDto>> GetAllFormasPagoAsync();
         Task<List<FuncionDto>> GetFuncionesByPeliculaIdAsync(int idPelicula);
+        Task<FuncionDto> GetFuncionByIdFuncion(int idFuncion);
         Task<ClienteFacDTO> ObtenerClientePorIdAsync(int idCliente);
 
-        // Nuevo
+        Task<ClienteUsuarioDto> GetClienteByUsernameAsync(string username);
 
-        //Task<List<Cliente>> GetClientePorId();  // Agregar este método
+        //Task<List<Cliente>> GetClientePorId(); 
     }
 }

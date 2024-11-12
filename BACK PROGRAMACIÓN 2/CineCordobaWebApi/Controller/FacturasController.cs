@@ -113,7 +113,19 @@ namespace CineCordobaWebApi.Controller
                 return StatusCode(500, "Error al obtener las butacas disponibles.");
             }
         }
-
+        [HttpGet("butacas-porId")]
+        public async Task<IActionResult> GetButacasDescripcionById(int idButaca)
+        {
+            try
+            {
+                var butacas = await _service.GetButacasDescripcionById(idButaca);
+                return Ok(butacas);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Error al obtener las butacas disponibles.");
+            }
+        }
         [HttpGet("formas-pago")]
         public async Task<IActionResult> GetAllFormasPago()
         {
@@ -141,6 +153,19 @@ namespace CineCordobaWebApi.Controller
                 return StatusCode(500, "Error al obtener las funciones de la película.");
             }
         }
+        [HttpGet("funcionesPorId")]
+        public async Task<IActionResult> GetFuncionesByIdFuncion(int idFuncion)
+        {
+            try
+            {
+                var funciones = await _service.GetFuncionByIdFuncion(idFuncion);
+                return Ok(funciones);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Error al obtener las funciones de la película.");
+            }
+        }
 
         [HttpGet("cliente/{idCliente}")]
         public async Task<IActionResult> ObtenerClientePorIdAsync(int idCliente)
@@ -148,6 +173,19 @@ namespace CineCordobaWebApi.Controller
             try
             {
                 var cliente = await _service.ObtenerClientePorIdAsync(idCliente);
+                return Ok(cliente);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Error al obtener el cliente.");
+            }
+        }
+        [HttpGet("clientePorUsername")]
+        public async Task<IActionResult> GetClienteByUsernameAsync(string username)
+        {
+            try
+            {
+                var cliente = await _service.GetClienteByUsernameAsync(username);
                 return Ok(cliente);
             }
             catch (Exception)
