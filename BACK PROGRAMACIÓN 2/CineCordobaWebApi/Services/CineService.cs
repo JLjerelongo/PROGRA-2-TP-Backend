@@ -165,12 +165,12 @@ namespace CineCordobaWebApi.Services
 
         public async Task<ClienteFacDTO> ObtenerClientePorIdAsync(int idCliente)
         {
-            return await _cineRepository.GetClientePorIdAsync(idCliente); // Asegúrate de que el repositorio tenga este método
+            return await _cineRepository.ObtenerClientePorIdAsync(idCliente); // Asegúrate de que el repositorio tenga este método
         }
 
-        public async Task<List<Cliente>> GetAllClientesAsync()
-        {
-            return await _cineRepository.GetAllClientesAsync();
-        }
+        //public async Task<List<Cliente>> GetClientePorId()
+        //{
+        //    return await _cineRepository.GetClientePorId();
+        //}
     }
 }

@@ -45,12 +45,12 @@ namespace CineCordobaWebApi.Repositories
         Task<List<FormaPagoDto>> GetAllFormasPagoAsync();
         Task<List<FuncionDto>> GetFuncionesByPeliculaIdAsync(int idPelicula);
         Task<CompraEntradaDto> RealizarCompra(CompraEntradaDto compraEntradaDto);
-        Task<ClienteFacDTO> GetClientePorIdAsync(int idCliente);
         Task<List<TicketDto>> GetAllTicketsAsync();
 
+        Task<ClienteFacDTO> ObtenerClientePorIdAsync(int idCliente);
         // Nuevo
 
-        Task<List<Cliente>> GetAllClientesAsync();  // Agregar este método
+        /*Task<List<Cliente>> GetAllClientesAsync();  // Agregar este método*/
 
     }
 }

@@ -709,7 +709,7 @@ namespace CineCordobaWebApi.Repositories
         {
             await _transaction.RollbackAsync(); // Deshacer la transacción
         }
-        public async Task<ClienteFacDTO> GetClientePorIdAsync(int idCliente)
+        public async Task<ClienteFacDTO> ObtenerClientePorIdAsync(int idCliente)
         {
             return await _context.Clientes
                 .Where(c => c.IdCliente == idCliente)
@@ -726,12 +726,12 @@ namespace CineCordobaWebApi.Repositories
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<List<Cliente>> GetAllClientesAsync()
-        {
+        //public async Task<Cliente> GetClientePorId()
+        //{
             
-            return await _context.Clientes.ToListAsync();
+        //    return await _context.Clientes.ToListAsync();
 
-        }
+        //}
     }
 }
 

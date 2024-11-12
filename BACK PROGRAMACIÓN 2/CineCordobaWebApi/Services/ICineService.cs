@@ -50,6 +50,6 @@ namespace CineCordobaWebApi.Services
 
         // Nuevo
 
-        Task<List<Cliente>> GetAllClientesAsync();  // Agregar este método
+        //Task<List<Cliente>> GetClientePorId();  // Agregar este método
     }
 }

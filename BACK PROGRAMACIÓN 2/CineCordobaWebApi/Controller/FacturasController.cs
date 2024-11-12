@@ -142,21 +142,36 @@ namespace CineCordobaWebApi.Controller
             }
         }
 
-
-        //Nueva parte
-        [HttpGet("clientes")]
-        public async Task<IActionResult> GetAllClientes()
+        [HttpGet("cliente/{idCliente}")]
+        public async Task<IActionResult> ObtenerClientePorIdAsync(int idCliente)
         {
             try
             {
-                var clientes = await _service.GetAllClientesAsync();
-                return Ok(clientes);
+                var cliente = await _service.ObtenerClientePorIdAsync(idCliente);
+                return Ok(cliente);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return StatusCode(500, "Error al obtener los clientes.");
+                return StatusCode(500, "Error al obtener el cliente.");
             }
         }
+
+
+        ////Nueva parte
+        //[HttpGet("clientes")]
+        //public async Task<IActionResult> GetClientePorId()
+        //{
+        //    try
+        //    {
+        //        var cliente = await _service.GetClientePorId();
+        //        return Ok(cliente);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return StatusCode(500, "Error al obtener los clientes.");
+        //    }
+
+        //}
 
     }
 }
