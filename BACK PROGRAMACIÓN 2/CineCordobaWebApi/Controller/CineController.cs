@@ -140,7 +140,7 @@ namespace CineCordobaWebApi.Controllers
             }
         }
 
-
+         
 
         //DELETE ("BAJA LÓGICA PELICULA")
         [HttpDelete("RETIRAR PELICULA/{idPelicula}")]
