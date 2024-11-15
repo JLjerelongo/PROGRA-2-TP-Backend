@@ -559,18 +559,17 @@ namespace CineCordobaWebApi.Repositories
             if (funcion == null)
                 throw new Exception("Función no encontrada.");
 
-            // Obtenemos todas las butacas de la sala específica de la función
+            // Obtenemos todas las butacas de la sala específica de la función y verificamos disponibilidad
             var butacas = await _context.ButacasSalas
                 .Where(b => b.IdSala == funcion.IdSala)
                 .Select(b => new ButacaDto
                 {
                     IdButaca = b.IdButacaSala,
                     Descripcion = $"Sala {b.IdSala} - Butaca {b.NroButaca}",
-                    Disponible = !b.Reservas.Any(r => r.FechaReserva == funcion.Fecha) && !b.Tickets.Any(t => t.Fecha == funcion.Fecha) // Marcar como false si está ocupada
+                    Disponible = !_context.Tickets.Any(t => t.IdButacaSala == b.IdButacaSala && t.IdFuncion == idFuncion)
                 })
                 .ToListAsync();
 
-            // Retornamos todas las butacas, con el campo Disponible en false para las ocupadas
             return butacas;
         }
 

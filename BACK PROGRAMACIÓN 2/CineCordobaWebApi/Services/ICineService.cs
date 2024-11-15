@@ -53,5 +53,6 @@ namespace CineCordobaWebApi.Services
         Task<ClienteUsuarioDto> GetClienteByUsernameAsync(string username);
 
         //Task<List<Cliente>> GetClientePorId(); 
+
     }
 }

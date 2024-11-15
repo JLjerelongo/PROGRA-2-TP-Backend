@@ -180,6 +180,7 @@ namespace CineCordobaWebApi.Services
             return await _cineRepository.GetClienteByUsernameAsync(username);
         }
 
+
         //public async Task<List<Cliente>> GetClientePorId()
         //{
         //    return await _cineRepository.GetClientePorId();
